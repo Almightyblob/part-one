@@ -9,41 +9,21 @@ const words = [
     'endeavour'
 ]
 
-const pruneAndSort = (word: string): string => {
-    return word.replace(/\s+/g, '').toLocaleLowerCase().split("").sort().join("");
+const pruneAndSort = (word: any): string => {
+    return String(word).replace(/\s+/g, '').toLocaleLowerCase().split("").sort().join("");
 }
 
-const isAnagram = (word1: string, word2:string): boolean => {
-    return pruneAndSort(String(word1)) === pruneAndSort(String(word2));
-}
+const findAndGroupAnagrams = (wordArray: string[]): string[][] => {
+    const anagramMap: Map<string, string[]> = new Map(); 
 
-const findAndGroupAnagrams = (wordArray: string[]): (string[])[] => {
-  const result: (string[])[] = [];
+    wordArray.forEach(word => {
+        const anagramKey = pruneAndSort(word);
+        const anagramCollection = anagramMap.get(anagramKey) || [];
+        anagramCollection.push(word);
+        anagramMap.set(anagramKey, anagramCollection);
+    });
 
-  for (let i = 0; i < wordArray.length; i++) {
-    const alreadyFound = result.flat().find((word) => word === wordArray[i]);
-
-    if (alreadyFound) {
-      continue;
-    }
-
-    let current = new Set<string>();
-    current.add(wordArray[i]);
-
-    for (let j = 0; j < wordArray.length; j++) {
-      if (current.has(wordArray[j])) {
-        continue;
-      }
-
-      if (isAnagram(wordArray[i], wordArray[j])) {
-        current.add(wordArray[j]);
-      }
-    }
-
-    result.push([...current]);
-  }
-
-  return result;
+    return [...anagramMap.values()];
 };
 
 console.log(findAndGroupAnagrams(words));
