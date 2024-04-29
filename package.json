@@ -1,0 +1,15 @@
+{
+  "name": "part-one",
+  "version": "1.0.0",
+  "description": "endeavour assignment p1",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.4.5"
+  }
+}
