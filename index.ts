@@ -9,21 +9,23 @@ const words = [
     'endeavour'
 ]
 
-const pruneAndSort = (word: any): string => {
-    return String(word).replace(/\s+/g, '').toLocaleLowerCase().split("").sort().join("");
+const pruneAndSort = (word: string): string => {
+    return word.replace(/\s+/g, '').toLocaleLowerCase().split("").sort().join("");
 }
 
-const findAndGroupAnagrams = (wordArray: string[]): string[][] => {
-    const anagramMap: Map<string, string[]> = new Map(); 
+const findAndGroupAnagrams = (
+  wordArray: string[]
+): string[][] => {
+  const anagramMap: Map<string, string[]> = new Map();
 
-    wordArray.forEach(word => {
-        const anagramKey = pruneAndSort(word);
-        const anagramCollection = anagramMap.get(anagramKey) || [];
-        anagramCollection.push(word);
-        anagramMap.set(anagramKey, anagramCollection);
-    });
+  wordArray.forEach((word) => {
+    const anagramKey = pruneAndSort(word);
+    const anagramCollection = anagramMap.get(anagramKey) || [];
+    anagramCollection.push(word);
+    anagramMap.set(anagramKey, anagramCollection);
+  });
 
-    return [...anagramMap.values()];
+  return [...anagramMap.values()];
 };
 
 console.log(findAndGroupAnagrams(words));
